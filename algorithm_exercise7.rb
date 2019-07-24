@@ -1,53 +1,42 @@
-class Player
-    attr_accessor :hand
-    def initialize(hand)
-      @hand=hand
-    end
-    def hand
-      return @hand
-    end
-end
-
-class Enemy
-  attr_accessor :hand
-  def initialize(hand)
-    @hand=hand
+class Player 
+	def hand
+	  puts "Enter a  number between 0 and 2"
+	  player_number = gets.to_i
+	while player_number > 2 || player_number < 0  do
+	  puts "Wrong number please try again:"
+	  player_number = gets.to_i
+	end
+	  puts "you choose #{player_number}"
+	  player_number
+	end
   end
-  def hand
-    return @hand
+  
+  class Enemy 
+	def hand
+	  computer_choice = rand(0..2)
+	  puts "I choose #{computer_choice}"
+	  computer_choice
+	end
   end
-end
-	 
-	 class Janken
-		attr_accessor :player_hand,:enemy_hand
-		def initialize(player_hand,enemy_hand)
-			@player_hand=player_hand
-			@enemy_hand=enemy_hand
-		end
-		def pon(player_hand, enemy_hand)
-			result=((player_hand-enemy_hand+3)%3)
-			if(result==2)
-				return "you are Win"
-			elsif(result==1)
-				return "you are Loss"
-			else
-				puts "you are Draw"
-				load("algorithm_exercise7.rb") 
-			end
-		end
-puts "please select one among these following:"
-puts "0: Goo"
-puts "1: Choki"
-puts "2: Par"
-number=gets.to_i
-if(number<0 || number>3)
-	puts "please press number between 0 and 2"
-else
-	player = Player.new(number)
-	arr=[0,1,2]
-	randomly=arr[rand(arr.count)];
-	enemy = Enemy.new(randomly)
-	janken = Janken.new(player,enemy)
-	puts "#{janken.pon(player.hand, enemy.hand)}"
-end
-end
+  
+  class Janken 
+	def pon(player_hand, enemy_hand)
+	  difference = player_hand - enemy_hand
+	  final_answer =(difference + 3)%3
+	  if final_answer == 2
+	  puts "You are the winner"
+	  elsif final_answer == 1
+	  puts "You are the looser"
+	  else 
+	  puts "it's a draw. let's try again"
+	  player = Player.new
+	  enemy = Enemy.new
+	  janken = Janken.new
+	  janken.pon(player.hand, enemy.hand)
+	  end
+	end 
+  end
+  player = Player.new
+  enemy = Enemy.new
+  janken = Janken.new
+  janken.pon(player.hand, enemy.hand)
